@@ -1,66 +1,38 @@
-/* Reset some default styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* Custom Styling for the Ugly Showcase Section */
+#ugly-showcase {
+  background: #f5f7fa;
+  color: #333;
+  padding-top: 4em;
+  padding-bottom: 4em;
 }
 
-/* Body Styles */
-body {
-    background-color: #ff69b4; /* Hot pink background */
-    font-family: 'Comic Sans MS', sans-serif; /* Comic Sans for that extra bad vibe */
-    color: #008000; /* Green text that's hard to read */
-    text-align: center;
+#ugly-showcase h2 {
+  color: #007BFF;
+  margin-bottom: 1em;
 }
 
-/* Header Styles */
-header {
-    background-color: #800080; /* Purple background for the header */
-    color: #ffffff; /* White text */
-    padding: 20px;
+#ugly-showcase h3 {
+  color: #333;
+  margin-top: 0.5em;
 }
 
-header h1 {
-    font-size: 48px;
-    text-shadow: 2px 2px 5px yellow;
+#ugly-showcase h4 {
+  color: #007BFF;
+  margin-top: 1.2em;
 }
 
-header p {
-    font-size: 24px;
+#ugly-showcase ul {
+  list-style: disc;
+  margin-left: 1.5em;
+  line-height: 1.8;
 }
 
-/* Main content styles */
-main {
-    background-color: #ffff00; /* Bright yellow for the main content area */
-    padding: 20px;
+#ugly-showcase img {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
 }
 
-section {
-    background-color: #00ffff; /* Cyan background for each section */
-    margin: 10px;
-    padding: 20px;
-}
-
-h2 {
-    font-size: 32px;
-    color: #ff6347; /* Tomato red */
-    text-decoration: underline dotted #000; /* Underline with dots */
-}
-
-button {
-    background-color: #00ff00; /* Bright green button */
-    color: #000000; /* Black text on the button */
-    font-size: 20px;
-    padding: 10px;
-    margin-top: 20px;
-    border-radius: 50px; /* Round button edges */
-    border: 5px solid #ff0000; /* Red border */
-}
-
-/* Footer Styles */
-footer {
-    background-color: #ff4500; /* Orange-red footer */
-    color: #ffffff;
-    padding: 10px;
-    font-size: 14px;
+#ugly-showcase img:hover {
+  transform: scale(1.02);
 }
