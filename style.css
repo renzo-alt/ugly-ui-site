@@ -1,0 +1,66 @@
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styles */
+body {
+    background-color: #ff69b4; /* Hot pink background */
+    font-family: 'Comic Sans MS', sans-serif; /* Comic Sans for that extra bad vibe */
+    color: #008000; /* Green text that's hard to read */
+    text-align: center;
+}
+
+/* Header Styles */
+header {
+    background-color: #800080; /* Purple background for the header */
+    color: #ffffff; /* White text */
+    padding: 20px;
+}
+
+header h1 {
+    font-size: 48px;
+    text-shadow: 2px 2px 5px yellow;
+}
+
+header p {
+    font-size: 24px;
+}
+
+/* Main content styles */
+main {
+    background-color: #ffff00; /* Bright yellow for the main content area */
+    padding: 20px;
+}
+
+section {
+    background-color: #00ffff; /* Cyan background for each section */
+    margin: 10px;
+    padding: 20px;
+}
+
+h2 {
+    font-size: 32px;
+    color: #ff6347; /* Tomato red */
+    text-decoration: underline dotted #000; /* Underline with dots */
+}
+
+button {
+    background-color: #00ff00; /* Bright green button */
+    color: #000000; /* Black text on the button */
+    font-size: 20px;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 50px; /* Round button edges */
+    border: 5px solid #ff0000; /* Red border */
+}
+
+/* Footer Styles */
+footer {
+    background-color: #ff4500; /* Orange-red footer */
+    color: #ffffff;
+    padding: 10px;
+    font-size: 14px;
+}
