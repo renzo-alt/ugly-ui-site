@@ -1,0 +1,11 @@
+{
+  "name": "ugly-ui-showcase",
+  "version": "1.0.0",
+  "description": "Static site showcasing ugly UI and SCM automation.",
+  "scripts": {
+    "lint": "eslint assets/js/*.js"
+  },
+  "devDependencies": {
+    "eslint": "^9.0.0"
+  }
+}
