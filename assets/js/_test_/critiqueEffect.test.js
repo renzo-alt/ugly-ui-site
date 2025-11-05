@@ -1,12 +1,15 @@
 // assets/js/__test__/critiqueEffect.test.js
 
+// Import functions using the CommonJS syntax (require)
 const { applyCritiqueLoadedEffect, setupCritiqueClickHandler } = require('../critiqueEffect');
 
+// Set up a clean DOM environment before each test
 beforeEach(() => {
     document.body.innerHTML = `
         <section id="header"></section>
         <button id="critique-btn"></button>
     `;
+    // Mock timers for functions using setTimeout
     jest.useFakeTimers();
 });
 
@@ -16,7 +19,7 @@ test('should change header background color for loaded effect', () => {
     
     applyCritiqueLoadedEffect();
     
-    // Assert that the color changed
+    // Assert that the color changed to the temporary 'tomato' color
     expect(header.style.backgroundColor).toBe('rgb(255, 99, 71)'); 
 });
 
@@ -24,18 +27,18 @@ test('should change header background color for loaded effect', () => {
 test('should add a message bubble to the body on button click', () => {
     const button = document.getElementById("critique-btn");
     
-    setupCritiqueClickHandler(); 
-    button.click(); 
+    setupCritiqueClickHandler(); // Setup the event listener
+    button.click(); // Simulate a click event
     
     const bubble = document.querySelector('.critique-bubble');
     
-    // Assert that the bubble was created
+    // Assert that the critique message bubble was created
     expect(bubble).not.toBeNull(); 
 });
 
 
 // --- 3. FAILING TEST (Demonstrates the CI Gate) ---
 test('CI Gate: This test intentionally fails to block the deployment job', () => {
-    // This assertion will cause the Test job to FAIL
+    // This assertion will cause the Test job to FAIL, blocking deployment
     expect(1 + 1).toBe(3); 
 });

@@ -1,7 +1,7 @@
 // assets/js/critiqueEffect.js
 
 // Function required to run when the page is loaded (runs once)
-export function applyCritiqueLoadedEffect() {
+function applyCritiqueLoadedEffect() {
     const header = document.getElementById("header");
     if (header) {
         // Example "eye-catching" effect: briefly flash the header background
@@ -15,7 +15,7 @@ export function applyCritiqueLoadedEffect() {
 }
 
 // Function that handles the click behavior (used for testing)
-export function setupCritiqueClickHandler() {
+function setupCritiqueClickHandler() {
     const critiqueButton = document.getElementById("critique-btn");
     if (!critiqueButton) return;
     
@@ -50,3 +50,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // 2. Set up the click handler
     setupCritiqueClickHandler();
 });
+
+// EXPORT FUNCTIONS USING COMMONJS (for Jest to read)
+module.exports = {
+    applyCritiqueLoadedEffect,
+    setupCritiqueClickHandler
+};
