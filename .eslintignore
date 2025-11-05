@@ -1,0 +1,6 @@
+# .eslintignore
+
+# Ignore all minified files
+**/*.min.js
+# Ignore any specific utility folders if needed
+assets/js/__test__/
