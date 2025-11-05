@@ -1,4 +1,6 @@
+/* eslint-env jest */
 // __tests__/critiqueEffect.test.js
+
 
 const { critiqueMessages } = require('../critiqueEffect'); // Import your function or variable
 
