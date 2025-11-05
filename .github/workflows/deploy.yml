@@ -1,5 +1,5 @@
 # .github/workflows/deploy.yml
-name: CI - Lint and Unit Test
+name: CI/CD Pipeline with Gates (Lint, Test, Deploy)
 
 on:
   # Triggers on pushes to the main branch
@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  # 1. Lint Job
+  # 1. Lint Job (Runs first)
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -28,12 +28,11 @@ jobs:
         run: npm install
 
       - name: Run ESLint (npm run lint)
-        # Executes the "lint" script defined in your package.json
         run: npm run lint 
 
   # 2. Test Job (Requires Lint to Pass)
   test:
-    needs: lint # Dependency: This ensures the 'lint' job must succeed first
+    needs: lint # Dependency: Must pass the 'lint' job
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -44,10 +43,34 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install dependencies
-        # Installs all packages, including Jest and jQuery
+      - name: Install dependencies (Jest, jQuery, etc.)
         run: npm install
         
       - name: Run Jest Tests (npm test)
-        # Executes the "test" script defined in your package.json
-        run: npm test
+        # This will fail initially due to your intentionally failing test
+        run: npm test 
+
+  # 3. Deployment Job (Only runs if Test job PASSES)
+  deploy:
+    needs: test # Dependency: Must pass the 'test' job
+    # CRITICAL: This condition ensures deployment ONLY happens if the 'test' job succeeded
+    if: success() 
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write # Required to update GitHub Pages
+      id-token: write # Required for deployment authentication
+    environment:
+      name: github-pages # The environment name for GitHub Pages
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          # Uploads your entire project root as the artifact
+          path: './' 
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
