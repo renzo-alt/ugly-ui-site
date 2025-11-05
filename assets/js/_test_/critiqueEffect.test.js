@@ -1,23 +1,44 @@
-/* eslint-env jest */
-// __tests__/critiqueEffect.test.js
+// critiqueEffect.test.js
 
+// Assuming 'util.js' includes the $.fn.critiqueEffect plugin.
+// In a typical setup, the setup file (jest.setup.js) ensures jQuery 
+// is loaded and accessible, and you may need to explicitly require your util file.
+// require('./assets/js/util'); 
 
-const { critiqueMessages } = require('../critiqueEffect'); // Import your function or variable
+describe('$.fn.critiqueEffect Plugin Test', () => {
 
-describe('Critique Effect', () => {
-  it('should return a critique message', () => {
-    const message = critiqueMessages[0]; // Use the first message as an example
-    expect(message).toBe("This layout looks like it was made in 1998!");
-  });
+    // Helper function to set up the necessary DOM element
+    function setupCritiqueDOM() {
+        document.body.innerHTML = `
+            <div id="targetElement" class="critique-ready">Initial Content</div>
+        `;
+        return $('#targetElement');
+    }
 
-  it('should randomly return a critique message', () => {
-    const randomMessage = critiqueMessages[Math.floor(Math.random() * critiqueMessages.length)];
-    expect(critiqueMessages).toContain(randomMessage);
-  });
+    // --- The Test for Critique Effect ---
+    test('should apply the "critique-error" class on execution', () => {
+        const $element = setupCritiqueDOM();
+        
+        // 1. Check initial state
+        expect($element.hasClass('critique-error')).toBe(false);
+        
+        // 2. Run the plugin from util.js
+        $element.critiqueEffect();
+        
+        // 3. Check final state: The element should now have the critique-error class.
+        expect($element.hasClass('critique-error')).toBe(true);
+    });
 
-  // Failing test example
-  it('should fail if an invalid message is included', () => {
-    const invalidMessage = "This is not a critique message";
-    expect(critiqueMessages).toContain(invalidMessage);  // This will fail as the message is not in the array
-  });
+    // You can add more specific tests here, like checking for custom attributes or 
+    // changes to inner text/HTML if your plugin does that.
+    
+    test('should return the jQuery object for chaining', () => {
+        const $element = setupCritiqueDOM();
+        
+        // The result of the plugin call should still be the jQuery object itself
+        const result = $element.critiqueEffect();
+
+        expect(result).toBe($element);
+    });
+
 });

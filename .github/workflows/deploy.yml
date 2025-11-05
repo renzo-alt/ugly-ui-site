@@ -1,110 +1,53 @@
-name: Deploy Website with Lint + Test Check
+# .github/workflows/deploy.yml
+name: CI - Lint and Unit Test
 
 on:
+  # Triggers on pushes to the main branch
   push:
-    branches:
-      - main
+    branches: [ main ]
+  # Triggers on all pull requests targeting main
   pull_request:
-    branches:
-      - main
+    branches: [ main ]
+  # Allows manual triggering
+  workflow_dispatch:
 
 jobs:
+  # 1. Lint Job
   lint:
-    name: Lint Code
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
-
-      - name: Cache Node modules
-        id: cache-node
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          node-version: '20'
 
       - name: Install dependencies
-        if: steps.cache-node.outputs.cache-hit != 'true'
         run: npm install
 
-      - name: Run ESLint
-        # The success of this step depends on the fix in the .eslintrc file below
-        run: npx eslint .
+      - name: Run ESLint (npm run lint)
+        # Executes the "lint" script defined in your package.json
+        run: npm run lint 
 
+  # 2. Test Job (Requires Lint to Pass)
   test:
-    name: Run Jest Tests
+    needs: lint # Dependency: This ensures the 'lint' job must succeed first
     runs-on: ubuntu-latest
-    needs: lint  # Only runs if lint passes
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
-
-      - name: Cache Node modules
-        id: cache-node
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          node-version: '20'
 
       - name: Install dependencies
-        if: steps.cache-node.outputs.cache-hit != 'true'
+        # Installs all packages, including Jest and jQuery
         run: npm install
-
-      - name: Run Jest
-        run: npx jest --ci
-
-  deploy:
-    name: Deploy to GitHub Pages
-    runs-on: ubuntu-latest
-    needs: test  # Only deploys if lint AND tests pass
-    # Add an environment check for deployment if needed, e.g., environment: production
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      - name: Cache Node modules
-        id: cache-node
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - name: Install dependencies
-        if: steps.cache-node.outputs.cache-hit != 'true'
-        run: npm install
-
-      - name: Build static site
-        run: |
-          # Ensure this command matches your actual site structure
-          mkdir -p dist
-          cp -r index.html assets dist/
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          # Use GITHUB_TOKEN for deployment permissions
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: dist
-          publish_branch: gh-pages
+        
+      - name: Run Jest Tests (npm test)
+        # Executes the "test" script defined in your package.json
+        run: npm test
