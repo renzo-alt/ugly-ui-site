@@ -19,6 +19,8 @@ export default defineConfig([
       // Define ALL necessary environments/globals
       globals: {
         ...globals.browser, 
+        ...globals.node,  // <--- THIS FIXES THE 'module is not defined' ERROR
+        
         $: "writable",      
         jQuery: "writable", 
         breakpoints: "writable",
