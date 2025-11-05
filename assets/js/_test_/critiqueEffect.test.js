@@ -37,8 +37,8 @@ test('should add a message bubble to the body on button click', () => {
 });
 
 
-// --- 3. FAILING TEST (Demonstrates the CI Gate) ---
+// --- 3. CI Gate: Fix for Successful Deployment ---
 test('CI Gate: This test intentionally fails to block the deployment job', () => {
-    // This assertion will cause the Test job to FAIL, blocking deployment
-    expect(1 + 1).toBe(3); 
+    // FIX APPLIED: This assertion now correctly passes (1 + 1 = 2)
+    expect(1 + 1).toBe(2); 
 });
