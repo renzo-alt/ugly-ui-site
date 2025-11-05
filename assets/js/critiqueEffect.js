@@ -1,7 +1,7 @@
 // assets/js/critiqueEffect.js
 
 // Function required to run when the page is loaded (runs once)
-function applyCritiqueLoadedEffect() {
+export function applyCritiqueLoadedEffect() {
     const header = document.getElementById("header");
     if (header) {
         // Example "eye-catching" effect: briefly flash the header background
@@ -15,7 +15,7 @@ function applyCritiqueLoadedEffect() {
 }
 
 // Function that handles the click behavior (used for testing)
-function setupCritiqueClickHandler() {
+export function setupCritiqueClickHandler() {
     const critiqueButton = document.getElementById("critique-btn");
     if (!critiqueButton) return;
     
@@ -35,8 +35,6 @@ function setupCritiqueClickHandler() {
         bubble.textContent = message;
 
         document.body.appendChild(bubble);
-        
-        // Add a class so CSS can style the bubble (you'll need to add .critique-bubble styles)
         
         setTimeout(() => {
             bubble.remove();

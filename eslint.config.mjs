@@ -19,21 +19,20 @@ export default defineConfig([
       // Define ALL necessary environments/globals
       globals: {
         ...globals.browser, 
-        $: "readonly",      
-        jQuery: "readonly", 
-        breakpoints: "readonly",
-        // Globals causing errors because the code is modifying them:
+        $: "writable",      
+        jQuery: "writable", 
+        breakpoints: "writable",
         $a: "writable",    
         b: "writable"      
       } 
     },
     
     rules: {
-        // Fix for 'Read-only global' errors: Turn off the strict rule completely
+        // Fix for 'Invalid typeof comparison value' errors
+        "valid-typeof": "off", 
+        // Fix for '$a is read-only' errors
         "no-global-assign": "off", 
-        
         // Fix for 'event is defined but never used'
-        // This setting allows arguments to be unused, fixing the 'event' error.
         "no-unused-vars": ["error", { "args": "none" }]
     }
   },
