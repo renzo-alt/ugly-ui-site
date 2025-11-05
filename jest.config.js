@@ -1,5 +1,6 @@
-// jest.config.js
+// jest.config.js (FINAL FIX)
 module.exports = {
+    // FIX: Set testEnvironment to the required module path for jsdom
     testEnvironment: 'jsdom',
     setupFilesAfterEnv: ['./jest.setup.js'], 
     moduleNameMapper: {
