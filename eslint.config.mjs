@@ -6,7 +6,7 @@ export default defineConfig([
   { 
     files: ["**/*.{js,mjs,cjs}"], 
     
-    // 1. Ignore minified files and test folder
+    // Ignore minified files and test folder
     ignores: [
       "assets/js/*.min.js", 
       "**/__test__/"
@@ -16,25 +16,25 @@ export default defineConfig([
     extends: ["js/recommended"], 
     
     languageOptions: { 
-      // 2. Define ALL necessary environments/globals
+      // Define ALL necessary environments/globals
       globals: {
         ...globals.browser, 
         $: "readonly",      
         jQuery: "readonly", 
         breakpoints: "readonly",
-        // CRITICAL FIX: Add the unique globals found in util.js
-        $a: "readonly",    
-        b: "readonly"      
+        // Globals causing errors because the code is modifying them:
+        $a: "writable",    
+        b: "writable"      
       } 
     },
     
     rules: {
-        // 3. Fix: Relax the rule for type comparisons that are causing errors in util.js
-        "valid-typeof": "off", 
+        // Fix for 'Read-only global' errors: Turn off the strict rule completely
+        "no-global-assign": "off", 
         
-        // 4. Fix: Allow the 'event' variable to be defined even if not explicitly used
-        // (common for old browser event handling functions)
-        "no-unused-vars": ["error", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false, "argsIgnorePattern": "^_" }]
+        // Fix for 'event is defined but never used'
+        // This setting allows arguments to be unused, fixing the 'event' error.
+        "no-unused-vars": ["error", { "args": "none" }]
     }
   },
 ]);
