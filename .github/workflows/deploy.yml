@@ -24,9 +24,14 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install dependencies
-        run: npm install
-
+      - name: Install dependencies (Fixes Permission Denied)
+        # Use 'npm ci' for reliable installs in CI environments
+        run: npm ci
+        
+      - name: Fix permissions for executables
+        # Ensures that the installed binaries can be executed
+        run: chmod -R +x node_modules/.bin
+        
       - name: Run ESLint (npm run lint)
         run: npm run lint 
 
@@ -44,7 +49,10 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies (Jest, jQuery, etc.)
-        run: npm install
+        run: npm ci
+        
+      - name: Fix permissions for executables
+        run: chmod -R +x node_modules/.bin
         
       - name: Run Jest Tests (npm test)
         # This will fail initially due to your intentionally failing test
@@ -57,10 +65,10 @@ jobs:
     if: success() 
     runs-on: ubuntu-latest
     permissions:
-      pages: write # Required to update GitHub Pages
-      id-token: write # Required for deployment authentication
+      pages: write 
+      id-token: write
     environment:
-      name: github-pages # The environment name for GitHub Pages
+      name: github-pages 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
