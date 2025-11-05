@@ -3530,3 +3530,53 @@ input, select, textarea {
 
 
 	}
+
+	/* assets/css/main.css */
+/* Move the critique button higher */
+#critique-section {
+  text-align: center;
+  margin-top: 20px; /* Reduced space above button */
+}
+
+#critique-btn {
+  font-size: 18px;
+  padding: 10px 20px;
+  background-color: #ff6347;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#critique-btn:hover {
+  background-color: #ff4500;
+}
+
+.critique-bubble {
+  position: fixed; /* Fixed to the viewport */
+  top: 50%; /* Vertically center it */
+  left: 50%; /* Horizontally center it */
+  transform: translate(-50%, -50%); /* Offset by 50% of its width and height */
+  padding: 20px 40px; /* Padding around the text */
+  background-color: #ff6347; /* Tomato red background */
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-size: 18px; /* Larger font size for visibility */
+  font-weight: bold;
+  text-align: center; /* Center the text inside the bubble */
+  max-width: 90%; /* Make sure the bubble doesn't overflow the screen */
+  z-index: 9999; /* Ensure it’s above other content */
+  animation: fadeIn 1s ease-in-out; /* Smooth fade-in animation */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
